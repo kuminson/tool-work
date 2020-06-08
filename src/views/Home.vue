@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    Useful tool for work
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from 'axios'
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  mounted () {
+    axios.post('https://dapp851951875.functionx.io/testnet/apiBlockExplorer/chainConfig/getChainConfig', {
+    }).then(val => {
+      console.log('val', val);
+    })
   }
 }
 </script>
