@@ -10,6 +10,7 @@
     <div class="row">
       <div class="row-res res-text">{{res}}</div>
     </div>
+    <div class="line-dividing"></div>
     <div class="title">pundix官网新闻转换</div>
     <div class="row">
       <div class="item">
@@ -23,6 +24,7 @@
     <div class="row copy" :data-clipboard-text="pundixNews">
       <pre class="row-res res-json">{{pundixNews}}</pre>
     </div>
+    <div class="line-dividing"></div>
     <div class="title">functionX官网新闻转换</div>
     <div class="row">
       <div class="item">
