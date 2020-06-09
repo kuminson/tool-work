@@ -1,6 +1,7 @@
 <template>
   <div class="i18n">
-    <div class="title">表格转js</div>
+    <!--h5 表格转js-->
+    <div class="title">h5 表格转js</div>
     <div class="note">表头第一行要用指定的规则 主要字段用'key' 语种用两个字母的缩写</div>
     <div class="note">| key | en | ja | es | ko |</div>
     <div class="row">
@@ -9,10 +10,26 @@
       </a-upload>
     </div>
     <div class="row">
-      <a-button :disabled="fileList.length === 0" @click="download"><a-icon type="download" />下载js文件</a-button>
+      <a-button :disabled="fileList.length === 0" @click="downloadJS"><a-icon type="download" />下载js文件</a-button>
+    </div>
+    <div class="row">
+      <a href="/example/example.xlsx" download>下载xlsx例子</a>
     </div>
     <div class="line-dividing"></div>
-    <div class="title">js转表格</div>
+    <!--h5 js转表格-->
+    <div class="title">h5 js转表格</div>
+    <div class="note">把所有js文件放到文件夹里一起上传</div>
+    <div class="row">
+      <a-upload directory :file-list="directory" :remove="dirHandleRemove" :before-upload="dirBeforeUpload">
+        <a-button><a-icon type="upload" />选择js文件夹</a-button>
+      </a-upload>
+    </div>
+    <div class="row">
+      <a-button :disabled="directory.length === 0" @click="downloadXLSX"><a-icon type="download" />下载xlsx文件</a-button>
+    </div>
+    <div class="row">
+      <a href="/example/example.zip" download>下载js文件夹例子</a>
+    </div>
   </div>
 </template>
 
@@ -24,13 +41,19 @@
     name: "i18n",
     data () {
       return {
-        fileList: []
+        // 表格文件
+        fileList: [],
+        // js文件夹
+        directory: []
       }
     },
     methods: {
       handleRemove(file) {
+        // 找到目标文件下标
         const index = this.fileList.indexOf(file);
+        // 生成新文件数组
         const newFileList = this.fileList.slice();
+        // 删除目标文件
         newFileList.splice(index, 1);
         this.fileList = newFileList;
       },
@@ -38,7 +61,7 @@
         this.fileList = [file];
         return false;
       },
-      download () {
+      downloadJS () {
         // 读取文件
         const file = this.fileList[0]
         const reader = new FileReader()
@@ -61,7 +84,6 @@
               mainKey = i
             }
           }
-          console.log('myKey', myKey, mainKey)
           const totalData = {}
           for (let i = 1; i < myjson.length; i++) {
             // 提取单页名
@@ -77,7 +99,6 @@
               totalData[myKey[j].name][keyObj[0]][keyObj[1]] = myjson[i][myKey[j].index]
             }
           }
-          console.log('totalData', totalData)
           // 放到压缩包里
           const zip = new JSZip()
           for (let key in totalData) {
@@ -91,7 +112,62 @@
             saveAs(content, "i18n.zip");
           })
         }
+        // 用buffer方式读取
         reader.readAsArrayBuffer(file)
+      },
+      dirHandleRemove (file) {
+        // 找到目标文件下标
+        const index = this.directory.indexOf(file);
+        // 生成新文件数组
+        const newFileList = this.directory.slice();
+        // 删除目标文件
+        newFileList.splice(index, 1);
+        this.directory = newFileList;
+      },
+      dirBeforeUpload (file) {
+        this.directory.push(file);
+        return false;
+      },
+      downloadXLSX () {
+        // 建立表格数据
+        const mainData = [
+          ['key', '原始文案']
+        ]
+        // 初始化计数器
+        let num = 0
+        // 处理读取到的文件
+        const readFileLoad = (e, name) => {
+          // 解析js文件
+          const data = JSON.parse(e.target.result.replace(/^.+?(?=\{)/, ''))
+          // 把js内容压入表格
+          for (let key in data) {
+            const tableArray = []
+            tableArray[0] = name + '.' + key
+            tableArray[1] = data[key]
+            mainData.push(tableArray)
+          }
+          // 累加计数器
+          num++
+          // 如果是最后一个文件
+          if (num === this.directory.length) {
+            // 把Array格式转成表格格式
+            const worksheet = XLSX.utils.aoa_to_sheet(mainData)
+            // 新建表格
+            const new_workbook = XLSX.utils.book_new()
+            // 在表格里加入表格内容
+            XLSX.utils.book_append_sheet(new_workbook, worksheet, "SheetJS")
+            // 下载表格
+            XLSX.writeFile(new_workbook, 'i18n.xlsx')
+          }
+        }
+        // 读取所有文件
+        for (let i = 0; i < this.directory.length; i++) {
+          const reader = new FileReader()
+          // 把文件名一同传入
+          reader.onload = (e) => {readFileLoad(e, this.directory[i].name.replace(/\..+?$/, ''))}
+          // 用文本方式读取
+          reader.readAsText(this.directory[i])
+        }
       }
     }
   }
