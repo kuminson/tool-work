@@ -13,7 +13,7 @@
       <a-button :disabled="fileList.length === 0" @click="downloadJS"><a-icon type="download" />下载js文件</a-button>
     </div>
     <div class="row">
-      <a href="/example/example.xlsx" download>下载xlsx例子</a>
+      <a href="./example/example.xlsx" download>下载xlsx例子</a>
     </div>
     <div class="line-dividing"></div>
     <!--h5 js转表格-->
@@ -28,7 +28,7 @@
       <a-button :disabled="directory.length === 0" @click="downloadXLSX"><a-icon type="download" />下载xlsx文件</a-button>
     </div>
     <div class="row">
-      <a href="/example/example.zip" download>下载js文件夹例子</a>
+      <a href="./example/example.zip" download>下载js文件夹例子</a>
     </div>
     <div class="line-dividing"></div>
     <!--vue 表格转json-->
@@ -44,7 +44,7 @@
       <a-button :disabled="vueXlsx.length === 0" @click="downloadVueJSON"><a-icon type="download" />下载JSON文件</a-button>
     </div>
     <div class="row">
-      <a href="/example/vue_example.xlsx" download>下载xlsx文件例子</a>
+      <a href="./example/vue_example.xlsx" download>下载xlsx文件例子</a>
     </div>
     <div class="line-dividing"></div>
     <!--vue json转表格-->
@@ -59,7 +59,7 @@
       <a-button :disabled="vueDirectory.length === 0" @click="downloadVueXLSX"><a-icon type="download" />下载xlsx文件</a-button>
     </div>
     <div class="row">
-      <a href="/example/vue_example.json" download>下载json文件例子</a>
+      <a href="./example/vue_example.json" download>下载json文件例子</a>
     </div>
   </div>
 </template>
@@ -118,13 +118,25 @@
                 name: myjson[0][i],
                 index: i
               })
-            } else if (myjson[0][i] === 'key') {
+            } else if (myjson[0][i].toLowerCase() === 'key') {
               mainKey = i
             }
           }
+
+          if (myKey.length === 0) {
+            console.log('未找到语种名，请用两个字母的缩写')
+            return
+          }
+          if (mainKey === '') {
+            console.log('未找到主要字段的key，请确定第一行主要字段名为key')
+          }
+
           const totalData = {}
           for (let i = 1; i < myjson.length; i++) {
             // 提取单页名
+            if (myjson[i].length === 0) {
+              continue
+            }
             const keyObj = myjson[i][mainKey].split('.')
             for (let j = 0; j < myKey.length; j++) {
               if (totalData[myKey[j].name] === undefined) {
