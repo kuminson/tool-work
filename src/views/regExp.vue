@@ -74,7 +74,7 @@
         // 拆分
         const sArray = string.split(/\n(?=[^h])/g)
         const resArray = sArray.map((item) => {
-          const res = item.replace(/([^h\n]+?(?:2019|2020)) +(.+)\n([h].+)/g, "{\n" +
+          const res = item.replace(/([^h\n]+?(?:20\d\d)) +(.+)\n([h].+)/g, "{\n" +
             "\"time\": \"$1 - \",\n" +
             "\"text\": \"$2\",\n" +
             "\"url\": \"$3\",\n" +
@@ -88,7 +88,7 @@
       fxToObj (string) {
         const sArray = string.split(/\n(?=[^h])/g)
         const resArray = sArray.map((item) => {
-          const res = item.replace(/([^h\n]+?(?:2019|2020)) +(.+)\n([h].+)/g, "{\n" +
+          const res = item.replace(/([^h\n]+?(?:20\d\d)) +(.+)\n([h].+)/g, "{\n" +
             "\"time\": \"$1\",\n" +
             "\"text\": \"$2\",\n" +
             "\"url\": \"$3\"\n" +
