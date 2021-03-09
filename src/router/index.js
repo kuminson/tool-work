@@ -13,13 +13,17 @@ Vue.use(VueRouter)
   {
     path: '/regExp',
     name: 'regExp',
-    component: () => import(/* webpackChunkName: "about" */ '../views/regExp.vue')
+    component: () => import(/* webpackChunkName: "regExp" */ '../views/regExp.vue')
   },
   {
     path: '/i18n',
     name: 'i18n',
-    component: () => import(/* webpackChunkName: "about" */ '../views/i18n.vue')
-  }
+    component: () => import(/* webpackChunkName: "i18n" */ '../views/i18n.vue')
+  },{
+      path: '/font',
+      name: 'font',
+      component: () => import(/* webpackChunkName: "font" */ '../views/Font.vue')
+    }
 ]
 
 const router = new VueRouter({

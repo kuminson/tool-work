@@ -3,7 +3,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/regExp">RegExp</router-link> |
-      <router-link to="/i18n">i18n</router-link>
+      <router-link to="/i18n">i18n</router-link> |
+      <router-link to="/font">Font</router-link>
     </div>
     <router-view/>
   </div>
