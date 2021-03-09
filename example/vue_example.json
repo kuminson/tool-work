@@ -1,0 +1,95 @@
+{
+  "common": {
+    "foot": "Copyright &copy;️ 1991 - 2020 dashuaibi All Rights Reserved.",
+    "minutesAgo": "minutes ago"
+  },
+  "overview": {
+    "download": {
+      "note": "Download new app"
+    },
+    "total": {
+      "address": "Total money"
+    },
+    "list": {
+      "all": "All",
+      "failure": "Failure",
+      "success": "Success"
+    }
+  },
+  "infoList": {
+    "info": "#{startNum} to #{endNum}",
+    "time": "Time"
+  },
+  "404": {
+    "whoops": "ohhh~ shit!",
+    "info": "We can’t seem the page you are looking for"
+  },
+  "copy": {
+    "success": "Copy success",
+    "fail": "Copy fail"
+  },
+  "try": [
+    {
+      "name": "woqu",
+      "power": "shit"
+    },
+    {
+      "name": "women",
+      "power": "stom"
+    },
+    {
+      "name": "men",
+      "power": "money"
+    }
+  ],
+  "tryOneTry": [
+    {
+      "title": "niubi",
+      "info": [
+        {
+          "first": "big",
+          "line": "so big"
+        },
+        {
+          "first": "small",
+          "line": "so small"
+        }
+      ]
+    },
+    {
+      "title": "zhentamahao",
+      "info": [
+        {
+          "first": "super",
+          "line": "so super"
+        },
+        {
+          "first": "lol",
+          "line": "so lol"
+        }
+      ]
+    }
+  ],
+  "test": [
+    [
+      [
+        "oneOneOne",
+        "oneOneTwo"
+      ],
+      [
+        "oneTwoOne",
+        "oneTwoTwo"
+      ]
+    ],
+    [
+      [
+        "twoOneOne",
+        "twoOneTwo"
+      ],
+      [
+        "twoTwoOne",
+        "twoTwoTwo"
+      ]
+    ]
+  ]
+}
